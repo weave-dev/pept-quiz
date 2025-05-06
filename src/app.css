@@ -1,3 +1,75 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+:root {
+    font-size: 20px;
+}
+
+@font-face {
+	font-family: 'Fredoka';
+	font-display: swap;
+	font-weight: 300;
+	src: url('./lib/fonts/Fredoka-Light.ttf'), format('ttf');
+}
+
+@font-face {
+	font-family: 'Fredoka';
+	font-display: swap;
+	font-weight: 400;
+	src: url('./lib/fonts/Fredoka-Regular.ttf'), format('ttf');
+}
+
+@font-face {
+	font-family: 'Fredoka';
+	font-display: swap;
+	font-weight: 500;
+	src: url('./lib/fonts/Fredoka-Medium.ttf'), format('ttf');
+}
+
+@font-face {
+	font-family: 'Fredoka';
+	font-display: swap;
+	font-weight: 600;
+	src: url('./lib/fonts/Fredoka-SemiBold.ttf'), format('ttf');
+}
+
+@font-face {
+	font-family: 'Fredoka';
+	font-display: swap;
+	font-weight: 700;
+	src: url('./lib/fonts/Fredoka-Bold.ttf'), format('ttf');
+}
+
+@font-face {
+	font-family: 'Poppins';
+	font-display: swap;
+	font-weight: 400;
+	src: url('./lib/fonts/Poppins-Regular.ttf'), format('ttf');
+}
+
+@font-face {
+	font-family: 'Poppins';
+	font-display: swap;
+	font-weight: 500;
+	src: url('./lib/fonts/Poppins-Medium.ttf'), format('ttf');
+}
+
+@font-face {
+	font-family: 'Poppins';
+	font-display: swap;
+	font-weight: 600;
+	src: url('./lib/fonts/Poppins-SemiBold.ttf'), format('ttf');
+}
+
+@font-face {
+	font-family: 'Poppins';
+	font-display: swap;
+	font-weight: 700;
+	src: url('./lib/fonts/Poppins-Bold.ttf'), format('ttf');
+}
+
+@theme {
+	--font-serif: Fredoka, serif;
+	--font-sans: Poppins, sans-serif;
+}
