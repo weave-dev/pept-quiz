@@ -3,7 +3,7 @@
 @plugin '@tailwindcss/typography';
 
 :root {
-    font-size: 20px;
+	font-size: 20px;
 }
 
 @font-face {
@@ -72,4 +72,54 @@
 @theme {
 	--font-serif: Fredoka, serif;
 	--font-sans: Poppins, sans-serif;
+
+	--color-bittersweet-red: #ff6e61;
+	--color-bittersweet-red-dark: #f84b3b;
+	--color-bittersweet-red-darker: #e52d1d;
+	--color-bittersweet-red-content: #480c07;
+
+	--shadow-bittersweet-red: 0 4px 0 0 #ff6e61;
+	--shadow-bittersweet-red-dark: 0 4px 0 0 #f84b3b;
+	--shadow-bittersweet-red-darker: 0 4px 0 0 #e52d1d;
+	--shadow-bittersweet-red-content: 0 4px 0 0 #480c07;
+
+	--color-texas-yellow: #ffb84d;
+	--color-texas-yellow-dark: #fe9611;
+	--color-texas-yellow-darker: #ef7a07;
+	--color-texas-yellow-content: #441c06;
+
+	--shadow-texas-yellow: 0 4px 0 0 #ffb84d;
+	--shadow-texas-yellow-dark: 0 4px 0 0 #fe9611;
+	--shadow-texas-yellow-darker: 0 4px 0 0 #ef7a07;
+	--shadow-texas-yellow-content: 0 4px 0 0 #441c06;
+
+	--color-fern-green: #68bb6c;
+	--color-fern-green-dark: #47a04c;
+	--color-fern-green-darker: #36833a;
+	--color-fern-green-content: #0e2511;
+
+	--shadow-fern-green: 0 4px 0 0 #68bb6c;
+	--shadow-fern-green-dark: 0 4px 0 0 #47a04c;
+	--shadow-fern-green-darker: 0 4px 0 0 #36833a;
+	--shadow-fern-green-content: 0 4px 0 0 #0e2511;
+
+	--color-picton-blue: #42a5f5;
+	--color-picton-blue-dark: #2686ea;
+	--color-picton-blue-darker: #1e6fd7;
+	--color-picton-blue-content: #173054;
+
+	--shadow-picton-blue: 0 4px 0 0 #42a5f5;
+	--shadow-picton-blue-dark: 0 4px 0 0 #2686ea;
+	--shadow-picton-blue-darker: 0 4px 0 0 #1e6fd7;
+	--shadow-picton-blue-content: 0 4px 0 0 #173054;
+
+	--color-amethyst-purple: #ab47bd;
+	--color-amethyst-purple-dark: #8b3497;
+	--color-amethyst-purple-darker: #732c7c;
+	--color-amethyst-purple-content: #3d1042;
+
+	--shadow-amethyst-purple: 0 4px 0 0 #ab47bd;
+	--shadow-amethyst-purple-dark: 0 4px 0 0 #8b3497;
+	--shadow-amethyst-purple-darker: 0 4px 0 0 #732c7c;
+	--shadow-amethyst-purple-content: 0 4px 0 0 #3d1042;
 }
