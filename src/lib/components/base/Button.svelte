@@ -45,6 +45,7 @@
 	const frontClass = $derived(
 		twMerge([
 			`transition-all duration-75 block -translate-y-2 rounded-lg px-8 py-2`,
+			`font-bold`,
 			frontBorder,
 			textColor,
 			customClass,

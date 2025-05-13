@@ -12,7 +12,7 @@
 	let {
 		children,
 		class: customClass,
-		variant = Variants.NEUTRAL
+		variant = Variants.NEUTRAL_LIGHT
 	}: Props = $props();
 
 	let variantClass = $derived([`border-${variant}`, `shadow-${variant}`]);
