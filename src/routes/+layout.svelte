@@ -4,4 +4,6 @@
 	let { children } = $props();
 </script>
 
-{@render children()}
+<div class="h-screen overflow-hidden text-gray-900">
+	{@render children()}
+</div>
