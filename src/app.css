@@ -122,4 +122,11 @@
 	--shadow-amethyst-purple-dark: 0 4px 0 0 #8b3497;
 	--shadow-amethyst-purple-darker: 0 4px 0 0 #732c7c;
 	--shadow-amethyst-purple-content: 0 4px 0 0 #3d1042;
+
+	--shadow-gray-300: 0 4px 0 0 var(--color-gray-300);
+	--shadow-gray-400: 0 4px 0 0 var(--color-gray-400);
+	--shadow-gray-500: 0 4px 0 0 var(--color-gray-500);
+	--shadow-gray-600: 0 4px 0 0 var(--color-gray-600);
+	--shadow-gray-700: 0 4px 0 0 var(--color-gray-700);
+	--shadow-gray-800: 0 4px 0 0 var(--color-gray-800);
 }
