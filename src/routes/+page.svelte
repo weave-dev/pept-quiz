@@ -4,11 +4,9 @@
 	import { nanoid } from 'nanoid';
 	import Button from '$lib/components/base/Button.svelte';
 	import { BgColors } from '$lib/types';
-	import { onMount } from 'svelte';
 
 	let id = $state(nanoid(4));
 	let name = $state('');
-	let hasLoaded = $state(false);
 
 	const handleInput = (value: string) => {
 		if (value.length == 21) {
@@ -47,8 +45,6 @@
 			]
 		}).toDataUri()
 	);
-
-	onMount(() => (hasLoaded = true));
 </script>
 
 <div class="bg-picton-blue grid h-full place-items-center">
@@ -61,15 +57,13 @@
 		</h1>
 
 		<div class="flex items-center gap-8">
-			<!-- {#key name || hasLoaded} -->
 			<div
 				class="border-picton-blue-content h-48 w-48 overflow-hidden rounded-full border-10"
 			>
 				<img class="h-full w-full" src={avatar} alt="avatar-new" />
 			</div>
-			<!-- {/key} -->
 
-			<div class="flex flex-col gap-8">
+			<div class="flex flex-col items-center gap-8">
 				<input
 					type="text"
 					class="rounded-lg font-semibold"
