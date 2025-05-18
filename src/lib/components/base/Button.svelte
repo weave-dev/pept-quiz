@@ -1,19 +1,22 @@
 <script lang="ts">
 	import { BgColors } from '$lib/types';
-	import type { BgColorsValues, TextColorsValues } from '$lib/types';
+ 	import type { BgColorsValues } from '$lib/types';
 	import type { Snippet } from 'svelte';
+	import type { MouseEventHandler } from 'svelte/elements';
 	import { twMerge } from 'tailwind-merge';
 
-	interface Props {
+	type Props = {
 		variant: BgColorsValues;
 		children: Snippet;
 		class?: string;
-	}
+		onclick?: MouseEventHandler<HTMLButtonElement>;
+	};
 
 	const {
 		children,
 		variant = BgColors.NEUTRAL,
 		class: customClass,
+		onclick,
 		...rest
 	}: Props = $props();
 
@@ -27,9 +30,9 @@
 
 	const btnClass = $derived(
 		twMerge([
-			'rounded-lg hover:[&>span]:-translate-y-1.5 active:[&>span]:translate-y-0 cursor-pointer select-none',
+			'rounded-lg hover:[&>span]:-translate-y-1.5 active:[&>span]:translate-y-0',
+			'cursor-pointer select-none inline-flex',
 			bgColor,
-			customClass
 		])
 	);
 
@@ -44,17 +47,17 @@
 
 	const frontClass = $derived(
 		twMerge([
-			`transition-all duration-75 block -translate-y-2 rounded-lg px-8 py-2`,
-			`font-bold`,
+			`transition-all duration-75 -translate-y-2 rounded-lg px-8 py-2`,
+			`font-bold grow`,
 			frontBorder,
 			textColor,
-			customClass,
-			variant
+			variant,
+			customClass
 		])
 	);
 </script>
 
-<button class={btnClass} {...rest}>
+<button class={btnClass} {onclick} {...rest}>
 	<span class={frontClass}>
 		{@render children()}
 	</span>
