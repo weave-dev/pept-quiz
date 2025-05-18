@@ -12,13 +12,13 @@
 	let {
 		children,
 		class: customClass,
-		variant = Variants.NEUTRAL_LIGHT
+		variant = Variants.NEUTRAL
 	}: Props = $props();
 
 	let variantClass = $derived([`border-${variant}`, `shadow-${variant}`]);
 
 	let mergedClass = $derived(
-		twMerge(['rounded-lg border-2 p-4', variantClass, customClass])
+		twMerge(['rounded-lg border-2 p-4 bg-white', variantClass, customClass])
 	);
 </script>
 
