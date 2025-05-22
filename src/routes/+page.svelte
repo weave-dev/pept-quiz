@@ -68,7 +68,7 @@
 				<input
 					type="text"
 					class="rounded-lg font-semibold"
-					bind:value={() => name, (value) => (name = value)}
+					bind:value={() => name, handleInput}
 					placeholder="Your name"
 				/>
 
