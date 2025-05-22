@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { icons } from '$lib/components/base/icons';
 
-	import Icon from '$lib/components/base/icons/Icon.svelte';
 	import Button from '$lib/components/base/Button.svelte';
 	import { BgColors } from '$lib/types';
 
