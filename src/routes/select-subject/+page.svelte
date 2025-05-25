@@ -3,14 +3,17 @@
 
 	import Icon from '$lib/components/base/icons/Icon.svelte';
 	import Button from '$lib/components/base/Button.svelte';
+	import RadioButton from '$lib/components/base/RadioButton.svelte';
 	import { BgColors } from '$lib/types';
 
 	const subjects = [
 		{
+			id: 1,
 			name: 'Math',
 			icon: icons.abacus
 		},
 		{
+			id: 2,
 			name: 'English',
 			icon: icons.inputLatinLetters
 		}
@@ -24,17 +27,14 @@
 		</h1>
 
 		<div class="flex items-center gap-8">
-			{#each subjects as subject}
-				<Button
-					variant={BgColors.NEUTRAL_LIGHT}
-					class="flex size-40 flex-col items-center gap-3 bg-white p-6"
-				>
+			{#each subjects as subject, index}
+				<RadioButton variant={BgColors.NEUTRAL_LIGHT} onclick={() => { console.info(subject.id) }} class="flex size-40 flex-col items-center gap-3 bg-white p-6" name="subject" id={"subject-" + subject.id}>
 					<subject.icon class="text-7xl" />
 					<span class="font-bold">{subject.name}</span>
-				</Button>
+				</RadioButton>
 			{/each}
 		</div>
-
+		
 		<Button variant={BgColors.FERN_GREEN}>Next</Button>
 	</div>
 </div>
