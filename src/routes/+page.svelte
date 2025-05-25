@@ -4,6 +4,7 @@
 	import { nanoid } from 'nanoid';
 	import Button from '$lib/components/base/Button.svelte';
 	import { BgColors } from '$lib/types';
+	import { goto } from '$app/navigation';
 
 	let id = $state(nanoid(4));
 	let name = $state('');
@@ -71,7 +72,10 @@
 					placeholder="Your name"
 				/>
 
-				<Button variant={BgColors.FERN_GREEN}>Let's go!</Button>
+				<Button
+					variant={BgColors.FERN_GREEN}
+					onclick={() => goto('#/select-subject')}>Let's go!</Button
+				>
 			</div>
 		</div>
 	</div>
