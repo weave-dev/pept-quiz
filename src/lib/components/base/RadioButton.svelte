@@ -2,25 +2,22 @@
     import { BgColors } from "$lib/types";
     import type { BgColorsValues } from "$lib/types";
 	import type { Snippet } from "svelte";
-	import type { MouseEventHandler } from "svelte/elements";
     import { twMerge } from "tailwind-merge";
 
     type Props = {
         variant: BgColorsValues;
         class?: string;
-        name: string;
-        id: string;
+        value: string;
+        group?: string;
         children: Snippet;
-        onclick?: MouseEventHandler<HTMLInputElement>;
     }
 
-    const {
+    let {
         variant = BgColors.NEUTRAL,
         class: customClass,
-        name,
-        id,
+        value,
+        group = $bindable(),
         children,
-        onclick,
         ...rest
     }: Props = $props();
 
@@ -63,8 +60,8 @@
 	);
 </script>
 
-<label for={id} class="group {btnClass}">
-    <input type="radio" class="peer sr-only" {onclick} {name} {id}>
+<label class="group {btnClass}">
+    <input type="radio" class="peer sr-only" bind:group={group} {value}>
     <div class="{frontClass} group-hover:-translate-y-1.5">
         {@render children()}
     </div>
