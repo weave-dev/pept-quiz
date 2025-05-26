@@ -1,21 +1,21 @@
 <script lang="ts">
-	import { createAvatar } from '@dicebear/core';
-	import { funEmoji } from '@dicebear/collection';
-	import { nanoid } from 'nanoid';
-	import Button from '$lib/components/base/Button.svelte';
-	import { BgColors } from '$lib/types';
-	import { goto } from '$app/navigation';
+	import { createAvatar } from '@dicebear/core'
+	import { funEmoji } from '@dicebear/collection'
+	import { nanoid } from 'nanoid'
+	import Button from '$lib/components/base/Button.svelte'
+	import { BgColors } from '$lib/types'
+	import { goto } from '$app/navigation'
 
-	let id = $state(nanoid(4));
-	let name = $state('');
+	let id = $state(nanoid(4))
+	let name = $state('')
 
 	const handleInput = (value: string) => {
 		if (value.length == 21) {
-			return;
+			return
 		}
 
-		name = value;
-	};
+		name = value
+	}
 
 	const avatar = $derived(
 		createAvatar(funEmoji, {
@@ -45,15 +45,17 @@
 				'wideSmile'
 			]
 		}).toDataUri()
-	);
+	)
+
+	const nameLabel = $derived(name ? `${name}!` : "what's your name?")
 </script>
 
-<div class="grid h-full place-items-center">
+<div class="grid h-full place-items-center bg-gradient-to-r">
 	<div class="flex flex-col items-center gap-10">
 		<h1 class="text-center font-serif text-5xl font-bold">
 			<span class="block"> Hello </span>
 			<span class="text-6xl">
-				{name ? `${name}!` : "what's your name?"}
+				{nameLabel}
 			</span>
 		</h1>
 
