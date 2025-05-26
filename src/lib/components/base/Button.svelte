@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { BgColors } from '$lib/types';
- 	import type { BgColorsValues } from '$lib/types';
+	import type { BgColorsValues } from '$lib/types';
 	import type { Snippet } from 'svelte';
 	import type { MouseEventHandler } from 'svelte/elements';
 	import { twMerge } from 'tailwind-merge';
@@ -10,12 +10,14 @@
 		children: Snippet;
 		class?: string;
 		onclick?: MouseEventHandler<HTMLButtonElement>;
+		rounded?: boolean;
 	};
 
 	const {
 		children,
 		variant = BgColors.NEUTRAL,
 		class: customClass,
+		rounded,
 		onclick,
 		...rest
 	}: Props = $props();
@@ -28,11 +30,14 @@
 			: `${variant}-darker`
 	);
 
+	const roundedClass = $derived(rounded ? 'rounded-full' : 'rounded-lg');
+
 	const btnClass = $derived(
 		twMerge([
-			'rounded-lg hover:[&>span]:-translate-y-1.5 active:[&>span]:translate-y-0',
+			'hover:[&>span]:-translate-y-1.5 active:[&>span]:translate-y-0',
 			'cursor-pointer select-none inline-flex',
-			bgColor,
+			roundedClass,
+			bgColor
 		])
 	);
 
@@ -47,10 +52,11 @@
 
 	const frontClass = $derived(
 		twMerge([
-			`transition-all duration-75 -translate-y-2 rounded-lg px-8 py-2`,
+			`transition-all duration-75 -translate-y-2 px-8 py-2`,
 			`font-bold grow`,
 			frontBorder,
 			textColor,
+			roundedClass,
 			variant,
 			customClass
 		])

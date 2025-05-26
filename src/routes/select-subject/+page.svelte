@@ -3,6 +3,7 @@
 
 	import Button from '$lib/components/base/Button.svelte';
 	import { BgColors } from '$lib/types';
+	import { goto } from '$app/navigation';
 
 	const subjects = [
 		{
@@ -34,6 +35,8 @@
 			{/each}
 		</div>
 
-		<Button variant={BgColors.FERN_GREEN}>Next</Button>
+		<Button variant={BgColors.FERN_GREEN} onclick={() => goto('#/app/map')}
+			>Next</Button
+		>
 	</div>
 </div>
