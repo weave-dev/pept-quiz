@@ -1,26 +1,28 @@
 <script lang="ts">
-	import { BgColors } from '$lib/types';
-	import type { BgColorsValues } from '$lib/types';
-	import type { Snippet } from 'svelte';
-	import type { MouseEventHandler } from 'svelte/elements';
-	import { twMerge } from 'tailwind-merge';
+	import { BgColors, BorderColors } from '$lib/types'
+	import type { BgColorsValues } from '$lib/types'
+	import type { Snippet } from 'svelte'
+	import type { MouseEventHandler } from 'svelte/elements'
+	import { twMerge } from 'tailwind-merge'
 
 	type Props = {
-		variant: BgColorsValues;
-		children: Snippet;
-		class?: string;
-		onclick?: MouseEventHandler<HTMLButtonElement>;
-		rounded?: boolean;
-	};
+		variant: BgColorsValues
+		children: Snippet
+		class?: string
+		onclick?: MouseEventHandler<HTMLButtonElement>
+		rounded?: boolean
+		disabled?: boolean
+	}
 
 	const {
 		children,
 		variant = BgColors.NEUTRAL,
 		class: customClass,
+		disabled,
 		rounded,
 		onclick,
 		...rest
-	}: Props = $props();
+	}: Props = $props()
 
 	const bgColor = $derived(
 		!variant.includes('dark')
@@ -28,27 +30,29 @@
 				? 'bg-gray-700'
 				: `${variant}-darker`
 			: `${variant}-darker`
-	);
+	)
 
-	const roundedClass = $derived(rounded ? 'rounded-full' : 'rounded-lg');
+	const roundedClass = $derived(rounded ? 'rounded-full' : 'rounded-lg')
 
 	const btnClass = $derived(
 		twMerge([
 			'hover:[&>span]:-translate-y-1.5 active:[&>span]:translate-y-0',
 			'cursor-pointer select-none inline-flex',
 			roundedClass,
-			bgColor
-		])
-	);
+			bgColor,
 
-	const frontBorder = $derived(['border-2', bgColor.replace('bg', 'border')]);
+			disabled && ['hover:[&>span]:translate-y-0', BgColors.NEUTRAL_LIGHTER]
+		])
+	)
+
+	const frontBorder = $derived(['border-2', bgColor.replace('bg', 'border')])
 	const txtColor = $derived(
 		bgColor.replace('bg', 'text').replace('-darker', '').replace('-dark', '')
-	);
+	)
 
 	const textColor = $derived([
 		txtColor.includes('gray') ? txtColor : txtColor + '-content'
-	]);
+	])
 
 	const frontClass = $derived(
 		twMerge([
@@ -58,12 +62,13 @@
 			textColor,
 			roundedClass,
 			variant,
-			customClass
+			customClass,
+			disabled && ['translate-y-0 border-transparent', BgColors.NEUTRAL_LIGHTER]
 		])
-	);
+	)
 </script>
 
-<button class={btnClass} {onclick} {...rest}>
+<button class={btnClass} {onclick} {...rest} {disabled}>
 	<span class={frontClass}>
 		{@render children()}
 	</span>
