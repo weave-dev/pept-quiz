@@ -7,44 +7,68 @@
 	// @TODO: dynamic levels when changing from Math/English
 	// currently working on Math module levels
 
+	const bg = [
+		BgColors.BITTERSWEET_RED,
+		BgColors.TEXAS_YELLOW,
+		BgColors.PICTON_BLUE,
+		BgColors.FERN_GREEN,
+		BgColors.AMETHYST_PURPLE
+	]
+
 	const activities = [
 		{
 			title: 'Counting Numbers',
+			enabled: [1]
 		},
 		{
-			title: 'Basic Addition'
+			title: 'Basic Addition',
+			enabled: [1]
 		},
 		{
-			title: 'Number Comparison'
+			title: 'Number Comparison',
+			enabled: [1]
 		},
-        {
-			title: 'Understanding Zero'
+		{
+			title: 'Understanding Zero',
+			enabled: [1]
 		},
-        {
-			title: 'Number Order'
+		{
+			title: 'Number Order',
+			enabled: [1]
 		}
 	]
+
+	const isEnabled = (enabledList: number[], item: number) =>
+		enabledList?.includes(item)
 </script>
 
-<div class="flex h-full overflow-auto flex-col items-center gap-10 py-10">
-	{#each activities as activity, i (i)}
+<div class="flex h-full flex-col items-center gap-10 overflow-auto py-10">
+	{#each activities as activity, activityIndex (activityIndex)}
 		<div
-			class="bg-fern-green text-fern-green-content
-	rounded-lg p-4 font-serif text-2xl font-bold"
+			class={[
+				bg[activityIndex],
+				'rounded-lg p-4 text-2xl font-bold text-white'
+			]}
 		>
 			{activity.title}
 		</div>
 
-		<Panel variant={Variants.NEUTRAL_LIGHT} class="grid grid-cols-5 gap-4">
-			{#each { length: 5 }}
+		<div class="mb-8 grid grid-cols-5 gap-4">
+			{#each { length: 5 }, btnIndex (btnIndex)}
+				{@const level = btnIndex + 1}
 				<Button
-					variant={BgColors.FERN_GREEN}
+					variant={bg[activityIndex]}
 					rounded
+					disabled={!isEnabled(activity.enabled, level)}
 					class="p-4 font-serif text-4xl text-white"
 				>
-					<icons.star12Filled />
+					{#if isEnabled(activity.enabled, level)}
+						<icons.star12Filled />
+					{:else}
+						<icons.lockClosed16Filled />
+					{/if}
 				</Button>
 			{/each}
-		</Panel>
+		</div>
 	{/each}
 </div>
