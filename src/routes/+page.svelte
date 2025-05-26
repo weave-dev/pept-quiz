@@ -48,7 +48,7 @@
 	);
 </script>
 
-<div class="bg-picton-blue grid h-full place-items-center">
+<div class="grid h-full place-items-center">
 	<div class="flex flex-col items-center gap-10">
 		<h1 class="text-center font-serif text-5xl font-bold">
 			<span class="block"> Hello </span>

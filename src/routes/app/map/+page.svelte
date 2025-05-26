@@ -14,7 +14,7 @@
 	</div>
 
 	<Panel variant={Variants.NEUTRAL_LIGHT} class="grid grid-cols-5 gap-4">
-		{#each { length: 5 }, i}
+		{#each { length: 5 }}
 			<Button
 				variant={BgColors.FERN_GREEN}
 				rounded
