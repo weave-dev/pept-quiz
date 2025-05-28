@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { BgColors, BorderColors } from '$lib/types'
-	import type { BgColorsValues } from '$lib/types'
+	import { BgColors, Variants } from '$lib/types'
+	import type { VariantsValues } from '$lib/types'
 	import type { Snippet } from 'svelte'
 	import type { MouseEventHandler } from 'svelte/elements'
 	import { twMerge } from 'tailwind-merge'
 
 	type Props = {
-		variant: BgColorsValues
+		variant: VariantsValues
 		children: Snippet
 		class?: string
 		onclick?: MouseEventHandler<HTMLButtonElement>
@@ -16,7 +16,7 @@
 
 	const {
 		children,
-		variant = BgColors.NEUTRAL,
+		variant = Variants.NEUTRAL,
 		class: customClass,
 		disabled,
 		rounded,
@@ -24,13 +24,13 @@
 		...rest
 	}: Props = $props()
 
-	const bgColor = $derived(
-		!variant.includes('dark')
-			? variant.includes('gray')
-				? 'bg-gray-700'
-				: `${variant}-darker`
-			: `${variant}-darker`
-	)
+	const bgColor = $derived.by(() => {
+		if (variant.includes('gray')) {
+			return 'bg-gray-700'
+		}
+
+		return !variant.includes('dark') ? `bg-${variant}-darker` : `bg-${variant}`
+	})
 
 	const roundedClass = $derived(rounded ? 'rounded-full' : 'rounded-lg')
 
@@ -40,7 +40,6 @@
 			'cursor-pointer select-none inline-flex',
 			roundedClass,
 			bgColor,
-
 			disabled && ['hover:[&>span]:translate-y-0', BgColors.NEUTRAL_LIGHTER]
 		])
 	)
@@ -61,7 +60,7 @@
 			frontBorder,
 			textColor,
 			roundedClass,
-			variant,
+			`bg-${variant}`,
 			customClass,
 			disabled && ['translate-y-0 border-transparent', BgColors.NEUTRAL_LIGHTER]
 		])
