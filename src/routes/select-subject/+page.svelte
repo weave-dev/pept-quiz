@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { icons } from '$lib/components/base/icons';
+	import { icons } from '$lib/components/base/icons'
 
-	import Button from '$lib/components/base/Button.svelte';
-	import RadioButton from '$lib/components/base/RadioButton.svelte';
-	import { BgColors } from '$lib/types';
-	import { goto } from '$app/navigation';
+	import Button from '$lib/components/base/Button.svelte'
+	import RadioButton from '$lib/components/base/RadioButton.svelte'
+	import { BgColors, Variants } from '$lib/types'
+	import { goto } from '$app/navigation'
 
-	let selectedSubject = $state('');
+	let selectedSubject = $state('')
 
 	const subjects = [
 		{
@@ -21,9 +21,9 @@
 			value: 'english',
 			icon: icons.inputLatinLetters
 		}
-	];
+	]
 
-	const redirectToMap = () => goto('#/app/map');
+	const redirectToMap = () => goto('#/app/map')
 </script>
 
 <div class="grid h-full place-items-center">
@@ -46,6 +46,6 @@
 			{/each}
 		</div>
 
-		<Button variant={BgColors.FERN_GREEN} onclick={redirectToMap}>Next</Button>
+		<Button variant={Variants.FERN_GREEN} onclick={redirectToMap}>Next</Button>
 	</div>
 </div>
