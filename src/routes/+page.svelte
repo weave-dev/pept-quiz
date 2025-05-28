@@ -3,7 +3,7 @@
 	import { funEmoji } from '@dicebear/collection'
 	import { nanoid } from 'nanoid'
 	import Button from '$lib/components/base/Button.svelte'
-	import { BgColors } from '$lib/types'
+	import { Variants } from '$lib/types'
 	import { goto } from '$app/navigation'
 
 	let id = $state(nanoid(4))
@@ -75,7 +75,7 @@
 				/>
 
 				<Button
-					variant={BgColors.FERN_GREEN}
+					variant={Variants.FERN_GREEN}
 					onclick={() => goto('#/select-subject')}>Let's go!</Button
 				>
 			</div>

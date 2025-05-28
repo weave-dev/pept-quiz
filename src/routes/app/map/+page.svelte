@@ -7,12 +7,12 @@
 	// @TODO: dynamic levels when changing from Math/English
 	// currently working on Math module levels
 
-	const bg = [
-		BgColors.BITTERSWEET_RED,
-		BgColors.TEXAS_YELLOW,
-		BgColors.PICTON_BLUE,
-		BgColors.FERN_GREEN,
-		BgColors.AMETHYST_PURPLE
+	const variant = [
+		Variants.BITTERSWEET_RED,
+		Variants.TEXAS_YELLOW,
+		Variants.PICTON_BLUE,
+		Variants.FERN_GREEN,
+		Variants.AMETHYST_PURPLE
 	]
 
 	const activities = [
@@ -46,7 +46,7 @@
 	{#each activities as activity, activityIndex (activityIndex)}
 		<div
 			class={[
-				bg[activityIndex],
+				'bg-' + variant[activityIndex],
 				'rounded-lg p-4 text-2xl font-bold text-white'
 			]}
 		>
@@ -57,7 +57,7 @@
 			{#each { length: 5 }, btnIndex (btnIndex)}
 				{@const level = btnIndex + 1}
 				<Button
-					variant={bg[activityIndex]}
+					variant={variant[activityIndex]}
 					rounded
 					disabled={!isEnabled(activity.enabled, level)}
 					class="p-4 font-serif text-4xl text-white"
