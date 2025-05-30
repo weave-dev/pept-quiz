@@ -35,7 +35,7 @@
 		<div class="flex items-center gap-8">
 			{#each subjects as subject}
 				<RadioButton
-					variant={BgColors.NEUTRAL_LIGHT}
+					variant={Variants.NEUTRAL_LIGHT}
 					bind:group={selectedSubject}
 					value={subject.value}
 					class="flex size-40 flex-col items-center gap-3 bg-white p-6"

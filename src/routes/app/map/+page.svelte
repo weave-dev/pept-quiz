@@ -3,6 +3,7 @@
 	import Panel from '$lib/components/base/Panel.svelte'
 	import { BgColors, Variants } from '$lib/types'
 	import { icons } from '$lib/components/base/icons'
+	import { goto } from '$app/navigation'
 
 	// @TODO: dynamic levels when changing from Math/English
 	// currently working on Math module levels
@@ -42,7 +43,7 @@
 		enabledList?.includes(item)
 </script>
 
-<div class="flex h-full flex-col items-center gap-10 overflow-auto py-10">
+<div class="flex flex-col items-center gap-10 py-10">
 	{#each activities as activity, activityIndex (activityIndex)}
 		<div
 			class={[
@@ -61,6 +62,7 @@
 					rounded
 					disabled={!isEnabled(activity.enabled, level)}
 					class="p-4 font-serif text-4xl text-white"
+					onclick={() => goto(`#/app/activity/multiple-choice`)}
 				>
 					{#if isEnabled(activity.enabled, level)}
 						<icons.star12Filled />
