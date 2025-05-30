@@ -1,69 +1,72 @@
-<script lang="ts">  
-    import { BgColors } from "$lib/types";
-    import type { BgColorsValues } from "$lib/types";
-	import type { Snippet } from "svelte";
-    import { twMerge } from "tailwind-merge";
+<script lang="ts">
+	import { BgColors, Variants } from '$lib/types'
+	import type { VariantsValues } from '$lib/types'
+	import type { Snippet } from 'svelte'
+	import { twMerge } from 'tailwind-merge'
 
-    type Props = {
-        variant: BgColorsValues;
-        class?: string;
-        value: string;
-        group?: string;
-        children: Snippet;
-    }
+	type Props = {
+		variant: VariantsValues
+		class?: string | string[]
+		value: unknown
+		group?: unknown
+		children: Snippet
+		disabled?: boolean
+	}
 
-    let {
-        variant = BgColors.NEUTRAL,
-        class: customClass,
-        value,
-        group = $bindable(),
-        children,
-        ...rest
-    }: Props = $props();
+	let {
+		variant = Variants.NEUTRAL,
+		class: customClass,
+		value,
+		group = $bindable(),
+		children,
+		disabled,
+		...rest
+	}: Props = $props()
 
-    const bgColor = $derived(
-        !variant.includes('dark')
-            ? variant.includes('gray')
-                ? 'bg-gray-700'
-                : `${variant}-darker`
-            : `${variant}-darker`
-    );
-    
-    // Darker part of the button (shadow)
-    const btnClass = $derived(
+	const bgColor = $derived.by(() => {
+		if (variant.includes('neutral')) {
+			return 'bg-neutral-700'
+		}
+
+		return !variant.includes('dark') ? `bg-${variant}-darker` : `bg-${variant}`
+	})
+
+	// Darker part of the button (shadow)
+	const btnClass = $derived(
 		twMerge([
-			'rounded-lg active:[&>span]:translate-y-0',
+			'group rounded-lg active:[&>span]:translate-y-0',
 			'cursor-pointer select-none inline-flex',
 			bgColor,
+			disabled && ['hover:[&>span]:translate-y-0', BgColors.NEUTRAL_LIGHTER]
 		])
-	);
-    
-    const frontBorder = $derived(['border-2', bgColor.replace('bg', 'border')]);
-    const txtColor = $derived(
+	)
+
+	const frontBorder = $derived(['border-2', bgColor.replace('bg', 'border')])
+	const txtColor = $derived(
 		bgColor.replace('bg', 'text').replace('-darker', '').replace('-dark', '')
-	);
+	)
 
-    const textColor = $derived([
-		txtColor.includes('gray') ? txtColor : txtColor + '-content'
-	]);
+	const textColor = $derived([
+		txtColor.includes('neutral') ? txtColor : txtColor + '-content'
+	])
 
-    // The highlighted part of the button on top of the shadow
-    const frontClass = $derived(
+	// The highlighted part of the button on top of the shadow
+	const frontClass = $derived(
 		twMerge([
-			`transition-all duration-75 -translate-y-2 rounded-lg px-8 py-2 peer-checked:translate-y-0`,
-			`font-bold grow`,
+			`transition-all duration-75 -translate-y-1 rounded-lg px-8 py-2 peer-checked:translate-y-0`,
+			`font-bold grow group-hover:-translate-y-0.5`,
 			frontBorder,
 			textColor,
-			variant,
-			customClass
+			`bg-${variant}`,
+			customClass,
+			disabled && ['translate-y-0 border-transparent', BgColors.NEUTRAL_LIGHTER]
 		])
-	);
+	)
 </script>
 
-<label class="group {btnClass}">
-    <input type="radio" class="peer sr-only" bind:group={group} {value}>
-    <div class="{frontClass} group-hover:-translate-y-1.5">
-        {@render children()}
-    </div>
+<label class={btnClass}>
+	<input type="radio" class="peer sr-only" bind:group {value} {disabled} />
+	<span class={frontClass}>
+		{@render children()}
+	</span>
 </label>
-
