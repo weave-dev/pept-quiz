@@ -2,8 +2,13 @@
 	import Button from '$lib/components/base/Button.svelte'
 	import { icons } from '$lib/components/base/icons'
 	import RadioButton from '$lib/components/base/RadioButton.svelte'
+	import {
+		useAdditionQuestion,
+		useCountObjectsQuestion,
+		type Option,
+		type Question
+	} from '$lib/modules/activity'
 	import { Variants, type VariantsValues } from '$lib/types'
-	import { shuffle } from 'remeda'
 	import { onMount } from 'svelte'
 
 	let questions = $state<Question[]>()
@@ -73,133 +78,14 @@
 		history.back()
 	}
 
-	const generateRandomNumber = (min: number, max: number) => {
-		return Math.floor(Math.random() * (max - min + 1)) + min
-	}
-
-	type Option = {
-		label: number | string
-		value: number
-		isCorrect?: boolean
-	}
-
-	type Question = {
-		question: string
-		options: Option[]
-		correctAnswer: Option
-	}
-
-	const generateOption = (
-		correctAnswer: Option,
-		numberOfOptions = 1,
-		min = 1,
-		max = 2
-	) => {
-		let options: number[] = []
-
-		for (let index = 1; index <= numberOfOptions; index++) {
-			let value = null
-			do {
-				value = generateRandomNumber(min, max)
-			} while (value === correctAnswer.value || options.includes(value))
-			options.push(value)
-		}
-
-		return shuffle([
-			correctAnswer,
-			...options.map(
-				(value): Option => ({
-					label: value,
-					value
-				})
-			)
-		])
-	}
-
-	const generateAdditionQuestion = (): Question => {
-		const [MIN, MAX] = [1, 10]
-
-		const first = generateRandomNumber(MIN, MAX)
-		const second = generateRandomNumber(MIN, MAX)
-		const correctAnswer = {
-			label: first + second,
-			value: first + second
-		}
-
-		const question = `What is ${first} + ${second}?`
-
-		return {
-			question,
-			options: generateOption(
-				correctAnswer,
-				3,
-				correctAnswer.value <= 5
-					? correctAnswer.value
-					: correctAnswer.value - 5,
-				correctAnswer.value + 5
-			),
-			correctAnswer
-		}
-	}
-
-	const generateCountObjectsQuestion = (): Question => {
-		const [MIN, MAX] = [1, 10]
-		const count = generateRandomNumber(MIN, MAX)
-
-		const correctAnswer = {
-			label: count,
-			value: count
-		}
-
-		const objects = [
-			{
-				word: 'apples',
-				emoji: '🍎'
-			},
-			{
-				word: 'bananas',
-				emoji: '🍌'
-			},
-			{
-				word: 'oranges',
-				emoji: '🍊'
-			},
-			{
-				word: 'grapes',
-				emoji: '🍇'
-			},
-			{
-				word: 'pears',
-				emoji: '🍐'
-			}
-		]
-
-		const selectedObject = objects[generateRandomNumber(0, objects.length - 1)]
-		const nObjects = selectedObject.emoji.repeat(count)
-		const question = `How many ${selectedObject.word} are there?\n${nObjects}`
-
-		return {
-			question,
-			options: generateOption(
-				correctAnswer,
-				3,
-				correctAnswer.value <= 5
-					? correctAnswer.value
-					: correctAnswer.value - 5,
-				correctAnswer.value + 5
-			),
-			correctAnswer
-		}
-	}
-
 	onMount(() => {
 		// Initialize the first question when the component mounts
 		questions = Array(10)
 			.fill(null)
 			.map(() => {
 				return Math.random() < 0.5
-					? generateAdditionQuestion()
-					: generateCountObjectsQuestion()
+					? useAdditionQuestion()
+					: useCountObjectsQuestion()
 			})
 
 		maxRounds = questions.length
