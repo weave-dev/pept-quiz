@@ -1,2 +1,2 @@
-export * from './composables/useMathActivities.svelte';
+export * from './composables/useMathActivities';
 export * from './types/index';
