@@ -8,7 +8,7 @@
 	type Props = {
 		variant: VariantsValues
 		children: Snippet
-		class?: string
+		class?: string | string[]
 		onclick?: MouseEventHandler<HTMLButtonElement>
 		rounded?: boolean
 		disabled?: boolean
@@ -25,8 +25,8 @@
 	}: Props = $props()
 
 	const bgColor = $derived.by(() => {
-		if (variant.includes('gray')) {
-			return 'bg-gray-700'
+		if (variant.includes('neutral')) {
+			return 'bg-neutral-700'
 		}
 
 		return !variant.includes('dark') ? `bg-${variant}-darker` : `bg-${variant}`
@@ -36,7 +36,7 @@
 
 	const btnClass = $derived(
 		twMerge([
-			'hover:[&>span]:-translate-y-1.5 active:[&>span]:translate-y-0',
+			'hover:[&>span]:-translate-y-0.5 active:[&>span]:translate-y-0',
 			'cursor-pointer select-none inline-flex',
 			roundedClass,
 			bgColor,
@@ -50,12 +50,12 @@
 	)
 
 	const textColor = $derived([
-		txtColor.includes('gray') ? txtColor : txtColor + '-content'
+		txtColor.includes('neutral') ? txtColor : txtColor + '-content'
 	])
 
 	const frontClass = $derived(
 		twMerge([
-			`transition-all duration-75 -translate-y-2 px-8 py-2`,
+			`transition-all duration-50 -translate-y-1 px-8 py-2`,
 			`font-bold grow`,
 			frontBorder,
 			textColor,
