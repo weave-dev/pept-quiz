@@ -20,12 +20,12 @@ export const Variants = {
 	AMETHYST_PURPLE_DARK: 'amethyst-purple-dark',
 	AMETHYST_PURPLE_DARKER: 'amethyst-purple-darker',
 	AMETHYST_PURPLE_CONTENT: 'amethyst-purple-content',
-	NEUTRAL_LIGHTER: 'gray-300',
-	NEUTRAL_LIGHT: 'gray-400',
-	NEUTRAL: 'gray-500',
-	NEUTRAL_DARK: 'gray-600',
-	NEUTRAL_DARKER: 'gray-700',
-	NEUTRAL_CONTENT: 'gray-800'
+	NEUTRAL_LIGHTER: 'neutral-300',
+	NEUTRAL_LIGHT: 'neutral-400',
+	NEUTRAL: 'neutral-500',
+	NEUTRAL_DARK: 'neutral-600',
+	NEUTRAL_DARKER: 'neutral-700',
+	NEUTRAL_CONTENT: 'neutral-800'
 } as const;
 
 export type BgColorsValues = (typeof BgColors)[keyof typeof BgColors];
@@ -50,12 +50,12 @@ export const BgColors = {
 	AMETHYST_PURPLE_DARK: 'bg-amethyst-purple-dark',
 	AMETHYST_PURPLE_DARKER: 'bg-amethyst-purple-darker',
 	AMETHYST_PURPLE_CONTENT: 'bg-amethyst-purple-content',
-	NEUTRAL_LIGHTER: 'bg-gray-300',
-	NEUTRAL_LIGHT: 'bg-gray-400',
-	NEUTRAL: 'bg-gray-500',
-	NEUTRAL_DARK: 'bg-gray-600',
-	NEUTRAL_DARKER: 'bg-gray-700',
-	NEUTRAL_CONTENT: 'bg-gray-800'
+	NEUTRAL_LIGHTER: 'bg-neutral-300',
+	NEUTRAL_LIGHT: 'bg-neutral-400',
+	NEUTRAL: 'bg-neutral-500',
+	NEUTRAL_DARK: 'bg-neutral-600',
+	NEUTRAL_DARKER: 'bg-neutral-700',
+	NEUTRAL_CONTENT: 'bg-neutral-800'
 } as const;
 
 export type TextColorsValues = (typeof TextColors)[keyof typeof TextColors];
@@ -80,12 +80,12 @@ export const TextColors = {
 	AMETHYST_PURPLE_DARK: 'text-amethyst-purple-dark',
 	AMETHYST_PURPLE_DARKER: 'text-amethyst-purple-darker',
 	AMETHYST_PURPLE_CONTENT: 'text-amethyst-purple-content',
-	NEUTRAL_LIGHTER: 'text-gray-300',
-	NEUTRAL_LIGHT: 'text-gray-400',
-	NEUTRAL: 'text-gray-500',
-	NEUTRAL_DARK: 'text-gray-600',
-	NEUTRAL_DARKER: 'text-gray-700',
-	NEUTRAL_CONTENT: 'text-gray-800'
+	NEUTRAL_LIGHTER: 'text-neutral-300',
+	NEUTRAL_LIGHT: 'text-neutral-400',
+	NEUTRAL: 'text-neutral-500',
+	NEUTRAL_DARK: 'text-neutral-600',
+	NEUTRAL_DARKER: 'text-neutral-700',
+	NEUTRAL_CONTENT: 'text-neutral-800'
 } as const;
 
 export type BorderColorsValues =
@@ -111,12 +111,12 @@ export const BorderColors = {
 	AMETHYST_PURPLE_DARK: 'border-amethyst-purple-dark',
 	AMETHYST_PURPLE_DARKER: 'border-amethyst-purple-darker',
 	AMETHYST_PURPLE_CONTENT: 'border-amethyst-purple-content',
-	NEUTRAL_LIGHTER: 'border-gray-300',
-	NEUTRAL_LIGHT: 'border-gray-400',
-	NEUTRAL: 'border-gray-500',
-	NEUTRAL_DARK: 'border-gray-600',
-	NEUTRAL_DARKER: 'border-gray-700',
-	NEUTRAL_CONTENT: 'border-gray-800'
+	NEUTRAL_LIGHTER: 'border-neutral-300',
+	NEUTRAL_LIGHT: 'border-neutral-400',
+	NEUTRAL: 'border-neutral-500',
+	NEUTRAL_DARK: 'border-neutral-600',
+	NEUTRAL_DARKER: 'border-neutral-700',
+	NEUTRAL_CONTENT: 'border-neutral-800'
 } as const;
 
 export type BoxShadowsValues =
@@ -142,10 +142,10 @@ export const BoxShadowsValues = {
 	AMETHYST_PURPLE_DARK: 'shadow-amethyst-purple-dark',
 	AMETHYST_PURPLE_DARKER: 'shadow-amethyst-purple-darker',
 	AMETHYST_PURPLE_CONTENT: 'shadow-amethyst-purple-content',
-	NEUTRAL_LIGHTER: 'shadow-gray-300',
-	NEUTRAL_LIGHT: 'shadow-gray-400',
-	NEUTRAL: 'shadow-gray-500',
-	NEUTRAL_DARK: 'shadow-gray-600',
-	NEUTRAL_DARKER: 'shadow-gray-700',
-	NEUTRAL_CONTENT: 'shadow-gray-800'
+	NEUTRAL_LIGHTER: 'shadow-neutral-300',
+	NEUTRAL_LIGHT: 'shadow-neutral-400',
+	NEUTRAL: 'shadow-neutral-500',
+	NEUTRAL_DARK: 'shadow-neutral-600',
+	NEUTRAL_DARKER: 'shadow-neutral-700',
+	NEUTRAL_CONTENT: 'shadow-neutral-800'
 } as const;
