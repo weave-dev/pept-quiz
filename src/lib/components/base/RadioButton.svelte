@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" generics="T">
 	import { BgColors, Variants } from '$lib/types'
 	import type { VariantsValues } from '$lib/types'
 	import type { Snippet } from 'svelte'
@@ -7,9 +7,10 @@
 	type Props = {
 		variant: VariantsValues
 		class?: string | string[]
-		value: unknown
-		group?: unknown
-		children: Snippet
+		value: T
+		group?: T
+		children?: Snippet
+		child?: Snippet<[T]>
 		disabled?: boolean
 	}
 
@@ -19,8 +20,8 @@
 		value,
 		group = $bindable(),
 		children,
-		disabled,
-		...rest
+		child,
+		disabled
 	}: Props = $props()
 
 	const bgColor = $derived.by(() => {
@@ -67,6 +68,10 @@
 <label class={btnClass}>
 	<input type="radio" class="peer sr-only" bind:group {value} {disabled} />
 	<span class={frontClass}>
-		{@render children()}
+		{#if child}
+			{@render child?.(value)}
+		{:else}
+			{@render children?.()}
+		{/if}
 	</span>
 </label>
