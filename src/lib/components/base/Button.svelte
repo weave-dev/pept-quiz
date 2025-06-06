@@ -7,7 +7,7 @@
 
 	type Props = {
 		variant: VariantsValues
-		children: Snippet
+		children?: Snippet
 		class?: string | string[]
 		onclick?: MouseEventHandler<HTMLButtonElement>
 		rounded?: boolean
@@ -69,6 +69,6 @@
 
 <button class={btnClass} {onclick} {...rest} {disabled}>
 	<span class={frontClass}>
-		{@render children()}
+		{@render children?.()}
 	</span>
 </button>

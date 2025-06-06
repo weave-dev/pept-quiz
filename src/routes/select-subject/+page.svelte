@@ -3,7 +3,7 @@
 
 	import Button from '$lib/components/base/Button.svelte'
 	import RadioButton from '$lib/components/base/RadioButton.svelte'
-	import { BgColors, Variants } from '$lib/types'
+	import { Variants } from '$lib/types'
 	import { goto } from '$app/navigation'
 
 	let selectedSubject = $state('')
@@ -28,7 +28,7 @@
 
 <div class="grid h-full place-items-center">
 	<div class="flex flex-col items-center gap-10">
-		<h1 class="text-center font-serif text-5xl font-bold">
+		<h1 class="font-serif text-5xl font-bold">
 			<span class="block">Choose a subject</span>
 		</h1>
 
