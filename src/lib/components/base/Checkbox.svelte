@@ -1,17 +1,20 @@
-<script lang="ts">
+<script lang="ts" generics="T">
 	import { BgColors, Variants } from '$lib/types'
 	import type { VariantsValues } from '$lib/types'
 	import type { Snippet } from 'svelte'
 	import { twMerge } from 'tailwind-merge'
 
+	type Choice = T & { value: unknown }
+	type FrontClass = string | string[]
 	type Props = {
 		variant: VariantsValues
 		class?: string | string[]
-		value?: unknown
+		choices: Choice[]
 		// checked?: boolean
 		// indeterminate?: boolean
-		group?: unknown
-		children: Snippet
+		group?: Choice[]
+		children?: Snippet<[Choice, FrontClass]>
+		child?: Snippet<[Choice, FrontClass]>
 		disabled?: boolean
 		onchange?: (e: Event) => void
 	}
@@ -19,14 +22,14 @@
 	let {
 		variant = Variants.NEUTRAL,
 		class: customClass,
-		value,
+		choices,
 		// checked = $bindable(),
 		// indeterminate = $bindable(),
 		group = $bindable(),
 		children,
+		child,
 		disabled,
-		onchange,
-		...rest
+		onchange
 	}: Props = $props()
 
 	const bgColor = $derived.by(() => {
@@ -70,9 +73,22 @@
 	)
 </script>
 
-<label class={btnClass}>
-	<input type="checkbox" class="peer sr-only" bind:group {value} {onchange} />
-	<span class={frontClass}>
-		{@render children()}
-	</span>
-</label>
+{#each choices as choice (choice)}
+	<label class={btnClass}>
+		<input
+			type="checkbox"
+			class="peer sr-only"
+			bind:group
+			value={choice.value}
+			{onchange}
+		/>
+
+		{#if child}
+			{@render child?.(choice, frontClass)}
+		{:else}
+			<span class={frontClass}>
+				{@render children?.(choice, frontClass)}
+			</span>
+		{/if}
+	</label>
+{/each}

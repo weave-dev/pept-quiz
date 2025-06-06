@@ -147,19 +147,25 @@
 			<!-- options  -->
 		</p>
 		<div class="grid w-full grid-cols-2 grid-rows-2 gap-4">
-			{#each currentQuestion?.options ?? [] as option}
-				<Checkbox
-					bind:group={selectedAnswers}
-					class={[
-						'col-span-1 flex h-24 items-center justify-center text-4xl',
-						String(checkOption(option).useBgWhite && 'bg-white')
-					]}
-					variant={checkOption(option).variant}
-					value={option.value}
-				>
-					{option.label}
-				</Checkbox>
-			{/each}
+			<Checkbox
+				bind:group={selectedAnswers}
+				class={[
+					'col-span-1 flex h-24 w-[200px] items-center justify-center text-4xl'
+				]}
+				variant={Variants.NEUTRAL}
+				choices={currentQuestion?.options ?? []}
+			>
+				{#snippet child(choice, frontClass)}
+					<span
+						class={[
+							frontClass,
+							String(checkOption(choice).useBgWhite && 'bg-white')
+						]}
+					>
+						{choice.label}
+					</span>
+				{/snippet}
+			</Checkbox>
 		</div>
 	</div>
 
