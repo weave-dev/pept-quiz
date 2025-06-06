@@ -32,6 +32,7 @@ export const useGenerateNumberOptions = (
 	])
 }
 
+// Generates addition question with random options and a correct answer
 export const useAdditionQuestion = (): Question => {
 	const [MIN, MAX] = [1, 10]
 
@@ -100,6 +101,69 @@ export const useCountObjectsQuestion = (): Question => {
 			correctAnswer.value <= 5 ? correctAnswer.value : correctAnswer.value - 5,
 			correctAnswer.value + 5
 		),
+		correctAnswer
+	}
+}
+
+export const useCountTapQuestion = (): Question => {
+	const [MIN, MAX] = [1, 6]
+	const count = useRandomNumber(MIN, MAX)
+
+	const correctAnswer = {
+		label: '',
+		value: count
+	}
+
+	const objects = [
+		{
+			word: 'stars',
+			emoji: '⭐'
+		},
+		{
+			word: 'hearts',
+			emoji: '❤️'
+		},
+		{
+			word: 'rainbows',
+			emoji: '🌈'
+		},
+		{
+			word: 'snowflakes',
+			emoji: '❄️'
+		},
+		{
+			word: 'clouds',
+			emoji: '☁️'
+		}
+	]
+
+	const selectedObject = objects[useRandomNumber(0, objects.length - 1)]
+	correctAnswer.label = selectedObject.emoji
+	const question = `Tap ${correctAnswer.value}${selectedObject.emoji} ${selectedObject.word}.`
+
+	const generateOptions = (length: number): Option[] => {
+		const options: Option[] = []
+		for (let i = 0; i <= length; i++) {
+			options.push({
+				value: i + 1,
+				label: `${correctAnswer.label}`
+			})
+		}
+
+		return options
+	}
+
+	const length = useRandomNumber(
+		correctAnswer.value,
+		useRandomNumber(
+			correctAnswer.value + 1,
+			useRandomNumber(correctAnswer.value + 1, correctAnswer.value + 6)
+		)
+	)
+
+	return {
+		question,
+		options: generateOptions(length),
 		correctAnswer
 	}
 }

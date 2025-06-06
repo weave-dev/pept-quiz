@@ -8,8 +8,8 @@
 		variant: VariantsValues
 		class?: string | string[]
 		value?: unknown
-		checked?: boolean
-		indeterminate?: boolean
+		// checked?: boolean
+		// indeterminate?: boolean
 		group?: unknown
 		children: Snippet
 		disabled?: boolean
@@ -20,8 +20,8 @@
 		variant = Variants.NEUTRAL,
 		class: customClass,
 		value,
-		checked = $bindable(),
-		indeterminate = $bindable(),
+		// checked = $bindable(),
+		// indeterminate = $bindable(),
 		group = $bindable(),
 		children,
 		disabled,
@@ -70,17 +70,8 @@
 	)
 </script>
 
-<label for={id} class={btnClass}>
-	<input
-		type="checkbox"
-		class="peer sr-only"
-		bind:checked
-		bind:indeterminate
-		bind:group
-		{onchange}
-		{value}
-		{disabled}
-	/>
+<label class={btnClass}>
+	<input type="checkbox" class="peer sr-only" bind:group {value} {onchange} />
 	<span class={frontClass}>
 		{@render children()}
 	</span>
