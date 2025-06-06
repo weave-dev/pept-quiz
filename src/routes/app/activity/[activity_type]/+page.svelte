@@ -5,10 +5,11 @@
 	import {
 		useAdditionQuestion,
 		useCountObjectsQuestion,
+		type DisableableOption,
 		type Option,
 		type Question
 	} from '$lib/modules/activity'
-	import { Variants, type VariantsValues } from '$lib/types'
+	import { BgColors, Variants } from '$lib/types'
 	import { onMount } from 'svelte'
 
 	let questions = $state<Question[]>()
@@ -22,30 +23,39 @@
 		return questions?.[currentRound - 1]
 	})
 
+	let currentOptions = $derived.by(() => {
+		if (currentQuestion) {
+			return currentQuestion?.options.map((option) => {
+				const disabled = gotCorrect !== undefined
+				return { ...option, disabled }
+			})
+		}
+
+		return []
+	})
+
 	let selectedAnswer = $state<Option>()
 	let gotCorrect = $state<true | false | undefined>()
 
-	const checkOption = (option: Option) => {
-		let variant: VariantsValues = Variants.NEUTRAL_LIGHT
-		let useBgWhite = true
+	const optionBg = (option: Option) => {
+		if (
+			selectedAnswer &&
+			gotCorrect !== undefined &&
+			option.value !== selectedAnswer.value
+		) {
+			return BgColors.NEUTRAL_LIGHTER
+		}
 
 		if (selectedAnswer && gotCorrect && option.value === selectedAnswer.value) {
-			variant = Variants.FERN_GREEN
-			useBgWhite = false
+			return BgColors.FERN_GREEN
 		}
 
 		if (
 			selectedAnswer &&
 			gotCorrect === false &&
-			option.value === selectedAnswer?.value
+			option.value === selectedAnswer.value
 		) {
-			variant = Variants.BITTERSWEET_RED
-			useBgWhite = false
-		}
-
-		return {
-			variant,
-			useBgWhite
+			return BgColors.BITTERSWEET_RED
 		}
 	}
 
@@ -130,21 +140,23 @@
 		<!-- options  -->
 		<!-- WIP for modularization -->
 		<div class="flex w-full justify-center gap-4">
-			{#each currentQuestion?.options ?? [] as option}
-				<RadioButton
-					bind:group={selectedAnswer}
-					class={[
-						'flex h-50 min-w-[200px] shrink-0 items-center justify-center text-4xl',
-						String(checkOption(option).useBgWhite && 'bg-white')
-					]}
-					variant={checkOption(option).variant}
-					value={option}
-					disabled={gotCorrect !== undefined &&
-						selectedAnswer?.value !== option.value}
-				>
-					{option.label}
-				</RadioButton>
-			{/each}
+			<RadioButton
+				bind:group={selectedAnswer as DisableableOption}
+				class="flex h-50 min-w-[200px] shrink-0 items-center justify-center bg-white text-4xl "
+				choices={currentOptions}
+			>
+				{#snippet child(choice, props)}
+					<span
+						class={props.merge([
+							props.frontClass,
+							props.disabledFront(choice.disabled) as string[],
+							optionBg(choice)
+						])}
+					>
+						{choice.label}
+					</span>
+				{/snippet}
+			</RadioButton>
 		</div>
 	</div>
 

@@ -4,24 +4,33 @@
 	import type { Snippet } from 'svelte'
 	import { twMerge } from 'tailwind-merge'
 
+	type ChildProps = [
+		Choice<T>,
+		{
+			frontClass: FrontClass
+			disabledFront: DisabledFront
+			merge: typeof twMerge
+		}
+	]
+	type Choice<T> = T & { value: unknown; disabled: boolean }
+	type FrontClass = string | string[]
+	type DisabledFront = (state: boolean) => string[] | boolean
 	type Props = {
-		variant: VariantsValues
+		variant?: VariantsValues
 		class?: string | string[]
-		value: T
-		group?: T
-		children?: Snippet
-		child?: Snippet<[T]>
-		disabled?: boolean
+		choices: Choice<T>[]
+		group?: Choice<T>
+		children?: Snippet<[Choice<T>]>
+		child?: Snippet<ChildProps>
 	}
 
 	let {
 		variant = Variants.NEUTRAL,
 		class: customClass,
-		value,
+		choices,
 		group = $bindable(),
 		children,
-		child,
-		disabled
+		child
 	}: Props = $props()
 
 	const bgColor = $derived.by(() => {
@@ -33,12 +42,14 @@
 	})
 
 	// Darker part of the button (shadow)
+
+	const disabledBtn = (state = false) =>
+		state && ['hover:[&>span]:translate-y-0', BgColors.NEUTRAL_LIGHTER]
 	const btnClass = $derived(
 		twMerge([
 			'group rounded-lg active:[&>span]:translate-y-0',
 			'cursor-pointer select-none inline-flex',
-			bgColor,
-			disabled && ['hover:[&>span]:translate-y-0', BgColors.NEUTRAL_LIGHTER]
+			bgColor
 		])
 	)
 
@@ -52,6 +63,8 @@
 	])
 
 	// The highlighted part of the button on top of the shadow
+	const disabledFront = (state = false) =>
+		state && ['translate-y-0 border-transparent', BgColors.NEUTRAL_LIGHTER]
 	const frontClass = $derived(
 		twMerge([
 			`transition-all duration-75 -translate-y-1 rounded-lg px-8 py-2 peer-checked:translate-y-0`,
@@ -59,19 +72,27 @@
 			frontBorder,
 			textColor,
 			`bg-${variant}`,
-			customClass,
-			disabled && ['translate-y-0 border-transparent', BgColors.NEUTRAL_LIGHTER]
+			customClass
 		])
 	)
 </script>
 
-<label class={btnClass}>
-	<input type="radio" class="peer sr-only" bind:group {value} {disabled} />
-	<span class={frontClass}>
+{#each choices as choice (choice.value)}
+	<label class={twMerge([btnClass, disabledBtn(choice.disabled)])}>
+		<input
+			type="checkbox"
+			class="peer sr-only"
+			bind:group
+			value={choice}
+			disabled={choice.disabled}
+		/>
+
 		{#if child}
-			{@render child?.(value)}
+			{@render child?.(choice, { frontClass, disabledFront, merge: twMerge })}
 		{:else}
-			{@render children?.()}
+			<span class={twMerge([frontClass, disabledFront(choice.disabled)])}>
+				{@render children?.(choice)}
+			</span>
 		{/if}
-	</span>
-</label>
+	</label>
+{/each}
