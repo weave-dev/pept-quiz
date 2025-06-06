@@ -128,12 +128,13 @@
 		</p>
 
 		<!-- options  -->
-		<div class="grid w-full grid-cols-2 grid-rows-2 gap-4">
+		<!-- WIP for modularization -->
+		<div class="flex w-full justify-center gap-4">
 			{#each currentQuestion?.options ?? [] as option}
 				<RadioButton
 					bind:group={selectedAnswer}
 					class={[
-						'col-span-1 flex h-24 items-center justify-center text-4xl',
+						'flex h-50 min-w-[200px] shrink-0 items-center justify-center text-4xl',
 						String(checkOption(option).useBgWhite && 'bg-white')
 					]}
 					variant={checkOption(option).variant}
