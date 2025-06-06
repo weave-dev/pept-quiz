@@ -80,7 +80,7 @@
 {#each choices as choice (choice.value)}
 	<label class={twMerge([btnClass, disabledBtn(choice.disabled)])}>
 		<input
-			type="checkbox"
+			type="radio"
 			class="peer sr-only"
 			bind:group
 			value={choice}
