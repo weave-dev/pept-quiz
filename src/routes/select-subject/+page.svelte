@@ -6,7 +6,8 @@
 	import { Variants } from '$lib/types'
 	import { goto } from '$app/navigation'
 
-	let selectedSubject = $state('')
+	type Subject = (typeof subjects)[number]
+	let selectedSubject = $state<Subject>()
 
 	const subjects = [
 		{
@@ -21,7 +22,7 @@
 			value: 'english',
 			icon: icons.inputLatinLetters
 		}
-	]
+	].map((s) => ({ ...s, disabled: false }))
 
 	const redirectToMap = () => goto('#/app/map')
 </script>
@@ -33,17 +34,19 @@
 		</h1>
 
 		<div class="flex items-center gap-8">
-			{#each subjects as subject}
-				<RadioButton
-					variant={Variants.NEUTRAL_LIGHT}
-					bind:group={selectedSubject}
-					value={subject.value}
-					class="flex size-40 flex-col items-center gap-3 bg-white p-6"
-				>
-					<subject.icon class="text-7xl" />
-					<span class="font-bold">{subject.name}</span>
-				</RadioButton>
-			{/each}
+			<RadioButton
+				choices={subjects}
+				variant={Variants.NEUTRAL_LIGHT}
+				bind:group={selectedSubject}
+				class="flex size-40 flex-col items-center gap-3 bg-white p-6"
+			>
+				{#snippet child(subject, props)}
+					<span class={props.frontClass}>
+						<subject.icon class="text-7xl" />
+						<span class="font-bold">{subject.name}</span>
+					</span>
+				{/snippet}
+			</RadioButton>
 		</div>
 
 		<Button variant={Variants.FERN_GREEN} onclick={redirectToMap}>Next</Button>
