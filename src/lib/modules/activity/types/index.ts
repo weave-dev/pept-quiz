@@ -1,3 +1,5 @@
+import type { Component } from 'svelte'
+
 export type Option = {
 	[key: string]: unknown
 	label: number | string
@@ -10,4 +12,11 @@ export type Question = {
 	question: string
 	options: Option[]
 	correctAnswer: Option
+	component?: Component<QuestionComponentProps>
+}
+
+export type QuestionComponentProps = {
+	currentQuestion: Question
+	selectedAnswer?: Option
+	gotCorrect?: boolean
 }

@@ -1,5 +1,6 @@
 import type { Option, Question } from '$lib/modules/activity/types'
 import { shuffle } from 'remeda'
+import MultipleChoice from '$lib/modules/activity/components/MultipleChoice.svelte'
 
 export const useRandomNumber = (min: number, max: number) => {
 	return Math.floor(Math.random() * (max - min + 1)) + min
@@ -52,7 +53,8 @@ export const useAdditionQuestion = (): Question => {
 			correctAnswer.value <= 5 ? correctAnswer.value : correctAnswer.value - 5,
 			correctAnswer.value + 5
 		),
-		correctAnswer
+		correctAnswer,
+		component: MultipleChoice
 	}
 }
 
@@ -100,6 +102,7 @@ export const useCountObjectsQuestion = (): Question => {
 			correctAnswer.value <= 5 ? correctAnswer.value : correctAnswer.value - 5,
 			correctAnswer.value + 5
 		),
-		correctAnswer
+		correctAnswer,
+		component: MultipleChoice
 	}
 }
