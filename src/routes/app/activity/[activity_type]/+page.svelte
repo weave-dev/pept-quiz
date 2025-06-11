@@ -1,63 +1,28 @@
 <script lang="ts">
 	import Button from '$lib/components/base/Button.svelte'
 	import { icons } from '$lib/components/base/icons'
-	import RadioButton from '$lib/components/base/RadioButton.svelte'
 	import {
 		useAdditionQuestion,
 		useCountObjectsQuestion,
-		type DisableableOption,
 		type Option,
 		type Question
 	} from '$lib/modules/activity'
-	import { BgColors, Variants } from '$lib/types'
+	import { Variants } from '$lib/types'
 	import { onMount } from 'svelte'
 
-	let questions = $state<Question[]>()
+	let questions = $state<Question[]>([])
 	let currentRound = $state(1)
-	let maxRounds = $state(10)
+	let maxRounds = $derived(questions?.length)
 	let progressWidth = $derived.by(() => {
-		return `${(currentRound / maxRounds) * 100}%`
+		return `${(currentRound / (maxRounds ?? 1)) * 100}%`
 	})
 
 	let currentQuestion = $derived.by(() => {
 		return questions?.[currentRound - 1]
 	})
 
-	let currentOptions = $derived.by(() => {
-		if (currentQuestion) {
-			return currentQuestion?.options.map((option) => {
-				const disabled = gotCorrect !== undefined
-				return { ...option, disabled }
-			})
-		}
-
-		return []
-	})
-
 	let selectedAnswer = $state<Option>()
 	let gotCorrect = $state<true | false | undefined>()
-
-	const optionBg = (option: Option) => {
-		if (
-			selectedAnswer &&
-			gotCorrect !== undefined &&
-			option.value !== selectedAnswer.value
-		) {
-			return BgColors.NEUTRAL_LIGHTER
-		}
-
-		if (selectedAnswer && gotCorrect && option.value === selectedAnswer.value) {
-			return BgColors.FERN_GREEN
-		}
-
-		if (
-			selectedAnswer &&
-			gotCorrect === false &&
-			option.value === selectedAnswer.value
-		) {
-			return BgColors.BITTERSWEET_RED
-		}
-	}
 
 	const handleContinue = () => {
 		if (gotCorrect === undefined) {
@@ -133,31 +98,13 @@
 
 	<div class="flex w-3/4 grow flex-col items-center justify-center rounded-lg">
 		<!-- main quiz screen -->
-		<p class="mb-10 text-4xl font-semibold break-words select-none">
-			{@html currentQuestion?.question}
-		</p>
-
-		<!-- options  -->
-		<!-- WIP for modularization -->
-		<div class="flex w-full justify-center gap-4">
-			<RadioButton
-				bind:group={selectedAnswer as DisableableOption}
-				class="flex h-50 min-w-[200px] shrink-0 items-center justify-center bg-white text-4xl "
-				choices={currentOptions}
-			>
-				{#snippet child(choice, props)}
-					<span
-						class={props.merge([
-							props.frontClass,
-							props.disabledFront(choice.disabled) as string[],
-							optionBg(choice)
-						])}
-					>
-						{choice.label}
-					</span>
-				{/snippet}
-			</RadioButton>
-		</div>
+		{#if currentQuestion?.component}
+			<currentQuestion.component
+				bind:selectedAnswer
+				{gotCorrect}
+				{currentQuestion}
+			/>
+		{/if}
 	</div>
 
 	<div
